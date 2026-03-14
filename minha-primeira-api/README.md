@@ -1,6 +1,7 @@
 # Minha Primeira API REST
 
 API Simples criada com Node.js e Express para estudo de desenvolvimento backend.
+Este projeto foi feito no dia 13/03/2026
 
 ## Tecnologias utilizadas
 
