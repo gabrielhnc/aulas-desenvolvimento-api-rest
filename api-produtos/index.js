@@ -24,7 +24,7 @@ let produtos = [
 // ENDPOINT INICIAL (GET)
 app.get('/', (req, res) => {
     res.json({
-        mensagem: '🎉 Minha primeira API funcionando!',
+        mensagem: '🎉 API para listagem de produtos personalizada!',
         status: 'sucesso',
         timestamp: new Date().toISOString()
     });
