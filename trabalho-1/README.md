@@ -1,6 +1,6 @@
-# 🚀 **API REST com Node.js e Express**
+# **API REST com Node.js e Express**
 
-## 📌 Introdução
+## Introdução
 
 Este trabalho consiste no desenvolvimento de uma API REST utilizando Node.js e Express, com o objetivo de aplicar conceitos fundamentais de criação de endpoints, manipulação de dados e validações.
 
@@ -8,7 +8,7 @@ A API permite realizar operações de consulta (GET) e cadastro de dados (POST),
 
 ---
 
-## 🛠️ Tecnologias utilizadas
+## Tecnologias utilizadas
 
 * Node.js
 * Express
@@ -42,7 +42,7 @@ touch .gitignore
 
 ---
 
-### 📄 .gitignore (Não enviar arquivos extensos ao GitHub)
+### .gitignore (Não enviar arquivos extensos ao GitHub)
 
 Adicionar o seguinte conteúdo:
 
@@ -54,7 +54,7 @@ package-lock.json
 
 ---
 
-### 💡 Ajuste do package.json (scripts)
+### Ajuste do package.json (scripts)
 
 Para facilitar a execução do projeto, é possível configurar scripts no arquivo `package.json`:
 
@@ -79,7 +79,7 @@ npm run dev
 
 ---
 
-## 🚀 Funcionalidades
+## Funcionalidades
 
 * Listagem de dados (GET)
 * Busca com filtros
@@ -89,7 +89,7 @@ npm run dev
 
 ---
 
-## 📡 Endpoints da API
+## Endpoints da API
 
 Na API deste trabalho, foram desenvolvidos os seguintes ENDPOINTS:
 
@@ -144,7 +144,7 @@ URL: http://localhost:3000/api/filmes
 
 ## GET - Listagem dos recursos
 
-📌 **Filtros disponíveis**
+**Filtros disponíveis**
 
 * genero → filtra por gênero
 * busca → busca por título
@@ -153,7 +153,7 @@ URL: http://localhost:3000/api/filmes
 * ano_min → ano mínimo
 * ano_max → ano máximo
 
-📊 **Ordenação**
+**Ordenação**
 
 * ordem = nota | ano | titulo (3 tipos de ordenação presentes)
 * direcao = asc | desc (Ordem **crescente** / **decrescente**)
@@ -177,7 +177,7 @@ Exemplo (JSON):
 
 ---
 
-## ✅ **Validações implementadas**
+## **Validações implementadas**
 
 No POST, algumas validações foram implementadas para impedir que um novo registro não fosse inserido de forma incorreta.
 
@@ -265,7 +265,7 @@ Exemplos de erro:
 
 ---
 
-## 📦 Dados criados via POST
+## Dados criados via POST
 Arquivos JSON utilizados para adicionar recursos ao array:
 
 ```JSON
