@@ -24,7 +24,7 @@ let produtos = [
 // ENDPOINT INICIAL (GET)
 app.get('/', (req, res) => {
     res.json({
-        mensagem: '🎉 API para listagem de produtos personalizada!',
+        mensagem: 'API para manipulação de Produtos',
         status: 'sucesso',
         timestamp: new Date().toISOString()
     });
@@ -33,9 +33,9 @@ app.get('/', (req, res) => {
 // ENDPOINT (GET /api/info)
 app.get('/api/info', (req, res) => {
     res.json({
-        nome: 'Minha API REST',
+        nome: 'API REST de Produtos',
         versao: '1.0.0',
-        autor: 'Seu Nome'
+        autor: 'Gabriel Casarini'
     });
 });
 
