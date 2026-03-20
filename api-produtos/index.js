@@ -15,16 +15,11 @@ app.use(express.json());
 // Array com 5 produtos
 let produtos = [
     {id: 1, nome: "Mouse Logitech", preco: 300, categoria: "Eletronicos", estoque: 10},
-    {id: 2, nome: "Bola de Futebol", preco: 25, categoria: "Brinquedos", estoque: 10},
-    {id: 3, nome: "Notebook Acer", preco: 2500, categoria: "Eletronicos", estoque: 10},
-    {id: 4, nome: "Cabo de Vassoura", preco: 15, categoria: "Utensilios", estoque: 10},
-    {id: 5, nome: "Teclado Redragon", preco: 250, categoria: "Eletronicos", estoque: 10},
+    {id: 2, nome: "Bola de Futebol", preco: 25, categoria: "Brinquedos", estoque: 50},
+    {id: 3, nome: "Notebook Acer", preco: 2500, categoria: "Eletronicos", estoque: 25},
+    {id: 4, nome: "Cabo de Vassoura", preco: 15, categoria: "Utensilios", estoque: 20},
+    {id: 5, nome: "Teclado Redragon", preco: 250, categoria: "Eletronicos", estoque: 40},
 ]
-
-// ENDPOINT (GET) -> Lista todos os produtos do array (Comentado devido ao uso da mesma rota posteriormente)
-app.get('/api/produtos/todos', (req, res) => {
-    res.json(produtos)
-})
 
 // ENDPOINT INICIAL (GET)
 app.get('/', (req, res) => {
@@ -43,6 +38,17 @@ app.get('/api/info', (req, res) => {
         autor: 'Seu Nome'
     });
 });
+
+// ==============================================================================
+
+// ENDPOINTS GET PARA CASOS ESPECIFICOS (MOSTRAR TODOS / POR ID OU NOME / USO DE FILTROS)
+// COMENTADO PARA MANTER O ENDPOINT FINAL (GET) SEM ALTERAÇÕES DE ROTA
+
+/* // ENDPOINT (GET) -> Lista todos os produtos do array (Comentado devido ao uso da mesma rota posteriormente)
+app.get('/api/produtos', (req, res) => {
+    res.json(produtos)
+})
+
 
 // PATH PARAMETER (Encontra uma ocorrencia especifica de um dos itens do JSON)
 
@@ -65,6 +71,7 @@ app.get('/api/produtos/:id', (req, res) => {
     res.json(produto)
 })
 
+
 // ENDPOINT GET/api/produtos/:nome - Buscar por NOME
 app.get('/api/produtos/nomes/:nome', (req, res) => {
     // 1. Pegar nome da URL
@@ -84,10 +91,11 @@ app.get('/api/produtos/nomes/:nome', (req, res) => {
     res.json(produto)
 })
 
+
 // QUERY PARAMETERS (Implementação de filtros e buscas na URI)
 
-// GET /api/produtos/categoria?categoria=Eletronicos
-app.get('/api/produtos/categoria', (req, res) => {
+// GET /api/produtos?categoria=Eletronicos
+app.get('/api/produtos', (req, res) => {
     // 1. Pegar query parameters
     const { categoria } = req.query;
 
@@ -108,37 +116,40 @@ app.get('/api/produtos/categoria', (req, res) => {
 
     // 4. Retornar o resultado filtrado
     res.json(resultado)
-})
+}) */
 
-// GET /api/produtos?categoria=Eletronicos
-app.get('/api/produtos/ordenar', (req, res) => {
+// ==============================================================================
+
+// ENDPOINT GET COMPLETO COM FILTROS, ORDENAÇÃO E PAGINAÇÃO
+
+// GET /api/produtos?categoria=Eletronicos&ordem=preco&direcao=asc&pagina=1&limite=2
+app.get('/api/produtos', (req, res) => {
     // Pegar query parameters
-    const { categoria, preco_max, preco_min, ordem, direcao } = req.query;
+    const { 
+        categoria, preco_max, preco_min, 
+        ordem, direcao,
+        pagina = 1, // Pagina padrão: 1
+        limite = 10 // Itens por página: 10
+    } = req.query;
 
     // Começar com todos os produtos
     let resultado = produtos;
 
     // Aplicar filtro de categoria (se fornecido)
-    if (categoria) {
-        resultado = resultado.filter(p => p.categoria === categoria);
-    } 
+    if (categoria) {resultado = resultado.filter(p => p.categoria === categoria);} 
 
     // Filtro de preço máximo
-    if (preco_max) {
-        resultado = resultado.filter(p => p.preco === parseFloat(preco_max));
-    }
+    if (preco_max) {resultado = resultado.filter(p => p.preco <= parseFloat(preco_max));}
 
     // Filtro de preço mínimo
-    if (preco_min) {
-        resultado = resultado.filter(p => p.preco === parseFloat(preco_min))
-    }
+    if (preco_min) {resultado = resultado.filter(p => p.preco >= parseFloat(preco_min))}
 
     // Ordenação
     if (ordem) {
         resultado = resultado.sort((a, b) => {
             //Ordenar por preço
             if (ordem === 'preco') {
-                return direcao = 'desc' // Se verdadeiro, decrescente / Se Falso, crescente
+                return direcao === 'desc' // Se verdadeiro, decrescente / Se Falso, crescente
                 ? b.preco - a.preco // Decrescente (Preço do B - Preço do A)
                 : a.preco - b.preco; // Crescente (Preço do A - Preço do B)
             }
@@ -149,14 +160,41 @@ app.get('/api/produtos/ordenar', (req, res) => {
                     ? b.nome.localeCompare(a.nome)
                     : a.nome.localeCompare(b.nome);
             }
+
+            if (ordem === 'estoque') {
+                return direcao === 'desc' // Se verdadeiro, decrescente / Se Falso, crescente
+                ? b.estoque - a.estoque // Decrescente (Preço do B - Preço do A)
+                : a.estoque - b.estoque; // Crescente (Preço do A - Preço do B)
+            }
         });
     }
     
-    // Retornar o resultado filtrado
-    res.json(resultado)
+    // Paginação
+    // Exemplo de URI: GET /api/produtos?pagina=1&limite=2
+    const paginaNum = parseInt(pagina);
+    const limiteNum = parseInt(limite);
+    const inicio = (paginaNum - 1) * limiteNum;
+    const fim = inicio + limiteNum;
+
+    const paginado = resultado.slice(inicio, fim);
+
+    // Retornar com metadados
+    res.json({
+        dados: paginado,
+        paginacao: {
+            pagina_atual: paginaNum,
+            itens_por_pagina: limiteNum,
+            total_itens: resultado.length,
+            total_paginas: Math.ceil(resultado.length / limiteNum)
+        }
+    })
 })
 
-
+app.get('/api/produtos/:id', (req, res) => {
+    const produto = produtos.find(p => p.id === parseInt(req.params.id));
+    if (!produto) return res.status(404).json({ erro: "Produto não encontrado" });
+    res.json(produto);
+});
 
 // Chamada da Porta para execução da API no dispositivo local
 app.listen(PORT, () => {
