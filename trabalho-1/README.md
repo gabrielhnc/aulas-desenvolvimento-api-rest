@@ -313,23 +313,23 @@ Arquivos JSON utilizados para adicionar recursos ao array:
 
 - localhost:3000/api/filmes
 
-![FILMES](/prints/GET/get_filmes.png)
+![FILMES](./prints/GET/get_filmes.png)
 
 - localhost:3000/api/filmes/id/1
 
-![FILMES-ID](/prints/GET/get_filmes_por_id.png)
+![FILMES-ID](./prints/GET/get_filmes_por_id.png)
 
 localhost:3000/api/filmes/titulo/o poderoso chefão
 
-![FILMES-TITULO](/prints/GET/get_filmes_por_titulo.png)
+![FILMES-TITULO](./prints/GET/get_filmes_por_titulo.png)
 
 localhost:3000/api/filmes?genero=Ficção
 
-![FILMES-GENERO](/prints/GET/get_filmes_filtro_genero.png)
+![FILMES-GENERO](./prints/GET/get_filmes_filtro_genero.png)
 
 localhost:3000/api/filmes?ordem=nota&direcao=asc&nota_min=8.4&pagina=1&limite=5
 
-![FILMES-COMPLETO](/prints/GET/get_filmes_filtro_completo.png)
+![FILMES-COMPLETO](./prints/GET/get_filmes_filtro_completo.png)
 
 ### - POST
 
@@ -337,27 +337,27 @@ localhost:3000/api/filmes
 
 Post 1
 
-![POST-1](/prints/POST/post_filmes_1.png)
+![POST-1](./prints/POST/post_filmes_1.png)
 
 Post 2
 
-![POST-2](/prints/POST/post_filmes_2.png)
+![POST-2](./prints/POST/post_filmes_2.png)
 
 Post 3
 
-![POST-3](/prints/POST/post_filmes_3.png)
+![POST-3](./prints/POST/post_filmes_3.png)
 
 Post 4
 
-![POST-4](/prints/POST/post_filmes_4.png)
+![POST-4](./prints/POST/post_filmes_4.png)
 
 Post 5
 
-![POST-5](/prints/POST/post_filmes_5.png)
+![POST-5](./prints/POST/post_filmes_5.png)
 
 GET em todos os filmes após dar 5 POSTs
 
-![POST-5](/prints/POST/get_filmes_apos_post.png)
+![POST-5](./prints/POST/get_filmes_apos_post.png)
 
 ---
 
