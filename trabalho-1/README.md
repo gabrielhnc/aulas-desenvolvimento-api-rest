@@ -227,17 +227,10 @@ ou
 
 ## **3 - Regras de negócio**
 
-Regras que permitem maior consistência ao sistema, Exemplos:
+Regras que permitem maior consistência ao sistema, Exemplo:
 
-* O ano não pode ser menor que 1888 (ano do primeiro filme da história).
 
 * A nota deve estar entre 0 e 10
-
-```JSON
-{
-  "erro": "Ano inválido"
-}
-```
 
 ```JSON
 {
