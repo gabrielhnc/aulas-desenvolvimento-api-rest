@@ -41,10 +41,9 @@ app.get('/api/info', (req, res) => {
 
 // ==============================================================================
 
-// ENDPOINTS GET PARA CASOS ESPECIFICOS (MOSTRAR TODOS / POR ID OU NOME / USO DE FILTROS)
-// COMENTADO PARA MANTER O ENDPOINT FINAL (GET) SEM ALTERAÇÕES DE ROTA
+// ANOTAÇÕES -> ENDPOINTS GET PARA CASOS ESPECIFICOS (MOSTRAR TODOS / POR ID OU NOME / USO DE FILTROS) 
 
-/* // ENDPOINT (GET) -> Lista todos os produtos do array (Comentado devido ao uso da mesma rota posteriormente)
+/* // ENDPOINT (GET) -> Lista todos os produtos do array
 app.get('/api/produtos', (req, res) => {
     res.json(produtos)
 })
@@ -73,7 +72,7 @@ app.get('/api/produtos/:id', (req, res) => {
 
 
 // ENDPOINT GET/api/produtos/:nome - Buscar por NOME
-app.get('/api/produtos/nomes/:nome', (req, res) => {
+app.get('/api/produtos/:nome', (req, res) => {
     // 1. Pegar nome da URL
     const nome = String(req.params.nome);
 
@@ -126,8 +125,7 @@ app.get('/api/produtos', (req, res) => {
 app.get('/api/produtos', (req, res) => {
     // Pegar query parameters
     const { 
-        categoria, preco_max, preco_min, 
-        ordem, direcao,
+        categoria, preco_max, preco_min, busca, ordem, direcao,
         pagina = 1, // Pagina padrão: 1
         limite = 10 // Itens por página: 10
     } = req.query;
@@ -137,6 +135,12 @@ app.get('/api/produtos', (req, res) => {
 
     // Aplicar filtro de categoria (se fornecido)
     if (categoria) {resultado = resultado.filter(p => p.categoria === categoria);} 
+
+    if (busca) {
+        const termo = busca.trim().toLowerCase();
+        resultado = resultado.filter(p => p.nome.toLowerCase().includes(termo)
+        );
+    }
 
     // Filtro de preço máximo
     if (preco_max) {resultado = resultado.filter(p => p.preco <= parseFloat(preco_max));}
@@ -190,9 +194,29 @@ app.get('/api/produtos', (req, res) => {
     })
 })
 
-app.get('/api/produtos/:id', (req, res) => {
+// Buscar por ID
+app.get('/api/produtos/id/:id', (req, res) => {
     const produto = produtos.find(p => p.id === parseInt(req.params.id));
-    if (!produto) return res.status(404).json({ erro: "Produto não encontrado" });
+
+    if (!produto) {
+        return res.status(404).json({ erro: "Produto não encontrado" });
+    }
+
+    res.json(produto);
+});
+
+// Buscar por nome (não é case sensitive)
+app.get('/api/produtos/nomes/:nome', (req, res) => {
+    const nome = req.params.nome.toLowerCase();
+
+    const produto = produtos.find(p =>
+        p.nome.toLowerCase() === nome
+    );
+
+    if (!produto) {
+        return res.status(404).json({ erro: "Nome não encontrado" });
+    }
+
     res.json(produto);
 });
 
