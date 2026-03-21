@@ -76,12 +76,6 @@ app.post('/api/filmes', (req, res) => {
     }
     
     // 4. VALIDAÇÕES - Regras de negócio
-    if (ano < 1888) { // Ano do primeiro filme da história
-        return res.status(400).json({
-            erro: "Ano inválido"
-        });
-    }
-
     if (nota < 0 || nota > 10) {
         return res.status(400).json({
             erro: "Nota deve estar entre 0 e 10"
