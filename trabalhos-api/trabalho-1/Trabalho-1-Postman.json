@@ -1,0 +1,259 @@
+{
+  "info": {
+    "_postman_id": "5be5a4a0-3cbd-435f-a817-bd4781c03408",
+    "name": "Trabalho 1 - API REST",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "53320766",
+    "_collection_link": "https://go.postman.co/collection/53320766-5be5a4a0-3cbd-435f-a817-bd4781c03408?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "GET",
+      "item": [
+        {
+          "name": "/filmes",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes/id/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes",
+                "id",
+                "1"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes por titulo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes/titulo/o poderoso chefão",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes",
+                "titulo",
+                "o poderoso chefão"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes filtro genero",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes?genero=Ficção",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ],
+              "query": [
+                {
+                  "key": "genero",
+                  "value": "Ficção"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes filtro nota_min",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes?nota_min=8.5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ],
+              "query": [
+                {
+                  "key": "nota_min",
+                  "value": "8.5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes filtro nota_max",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes?nota_max=8.5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ],
+              "query": [
+                {
+                  "key": "nota_max",
+                  "value": "8.5"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes filtro paginacao",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes?pagina=1&limite=10",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "10"
+                }
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/filmes filtro completo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/filmes?ordem=nota&direcao=asc&nota_min=8.4&pagina=1&limite=5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "filmes"
+              ],
+              "query": [
+                {
+                  "key": "ordem",
+                  "value": "nota"
+                },
+                {
+                  "key": "direcao",
+                  "value": "asc"
+                },
+                {
+                  "key": "nota_min",
+                  "value": "8.4"
+                },
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
+    },
+    {
+      "name": "/post",
+      "request": {
+        "method": "POST",
+        "header": [],
+        "body": {
+          "mode": "raw",
+          "raw": "{\r\n  \"titulo\": \"Clube da Luta\",\r\n  \"diretor\": \"David Fincher\",\r\n  \"ano\": 1999,\r\n  \"genero\": \"Drama\",\r\n  \"nota\": 8.8\r\n}",
+          "options": {
+            "raw": {
+              "language": "json"
+            }
+          }
+        },
+        "url": {
+          "raw": "http://localhost:3000/api/filmes",
+          "protocol": "http",
+          "host": [
+            "localhost"
+          ],
+          "port": "3000",
+          "path": [
+            "api",
+            "filmes"
+          ]
+        }
+      },
+      "response": []
+    }
+  ]
+}
