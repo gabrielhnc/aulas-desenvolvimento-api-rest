@@ -9,19 +9,205 @@
   "item": [
     {
       "name": "GET",
-      "item": []
+      "item": [
+        {
+          "name": "/jogos",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/jogos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos por ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/id/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "id",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos por titulo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/titulo/God of War",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "titulo",
+                "God of War"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos filtro completo",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/jogos?genero=Ação/Aventura&nota_min=9&pagina=1&limite=5",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ],
+              "query": [
+                {
+                  "key": "genero",
+                  "value": "Ação/Aventura"
+                },
+                {
+                  "key": "nota_min",
+                  "value": "9"
+                },
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "5"
+                }
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "POST",
-      "item": []
+      "item": [
+        {
+          "name": "/jogos/post",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hollow Knight\",\r\n    \"desenvolvedora\": \"Team Cherry\",\r\n    \"ano\": 2017,\r\n    \"genero\": \"Aventura\",\r\n    \"plataforma\": \"PC/Switch\",\r\n    \"nota\": 9.2\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "PUT",
-      "item": []
+      "item": [
+        {
+          "name": "/jogos/put ID",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"The Witcher 3: Wild Hunt\",\r\n    \"desenvolvedora\": \"CD Projekt Red\",\r\n    \"ano\": 2025,\r\n    \"genero\": \"RPG\",\r\n    \"plataforma\": \"PC/PS4/Xbox One\",\r\n    \"nota\": 9.5\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/4",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "4"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "DELETE",
-      "item": []
+      "item": [
+        {
+          "name": "/jogos/delete ID",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     }
   ]
 }
