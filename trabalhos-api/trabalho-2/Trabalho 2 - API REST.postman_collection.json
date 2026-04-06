@@ -111,6 +111,43 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "/jogos paginacao",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hades\",\r\n    \"desenvolvedora\": \"Supergiant Games\",\r\n    \"ano\": 2020,\r\n    \"genero\": \"Ação/RPG\",\r\n    \"plataforma\": \"PC/Switch/PS4\",\r\n    \"nota\": 9.3\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos?pagina=1&limite=50",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ],
+              "query": [
+                {
+                  "key": "pagina",
+                  "value": "1"
+                },
+                {
+                  "key": "limite",
+                  "value": "50"
+                }
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -118,13 +155,71 @@
       "name": "POST",
       "item": [
         {
-          "name": "/jogos/post",
+          "name": "/jogos/post_1",
           "request": {
             "method": "POST",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"titulo\": \"Hollow Knight\",\r\n    \"desenvolvedora\": \"Team Cherry\",\r\n    \"ano\": 2017,\r\n    \"genero\": \"Aventura\",\r\n    \"plataforma\": \"PC/Switch\",\r\n    \"nota\": 9.2\r\n}",
+              "raw": "{\r\n  \"titulo\": \"Hollow Knight\",\r\n  \"desenvolvedora\": \"Team Cherry\",\r\n  \"ano\": 2017,\r\n  \"genero\": \"Aventura\",\r\n  \"plataforma\": \"PC/Switch\",\r\n  \"nota\": 9.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos/post_2",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hades\",\r\n    \"desenvolvedora\": \"Supergiant Games\",\r\n    \"ano\": 2020,\r\n    \"genero\": \"Ação/RPG\",\r\n    \"plataforma\": \"PC/Switch/PS4\",\r\n    \"nota\": 9.3\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos/post_3",
+          "request": {
+            "method": "POST",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Celeste\",\r\n    \"desenvolvedora\": \"Maddy Makes Games\",\r\n    \"ano\": 2018,\r\n    \"genero\": \"Plataforma\",\r\n    \"plataforma\": \"PC/Switch/PS4/Xbox\",\r\n    \"nota\": 9.1\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -152,13 +247,13 @@
       "name": "PUT",
       "item": [
         {
-          "name": "/jogos/put ID",
+          "name": "/jogos/put_1 ID",
           "request": {
             "method": "PUT",
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"titulo\": \"The Witcher 3: Wild Hunt\",\r\n    \"desenvolvedora\": \"CD Projekt Red\",\r\n    \"ano\": 2025,\r\n    \"genero\": \"RPG\",\r\n    \"plataforma\": \"PC/PS4/Xbox One\",\r\n    \"nota\": 9.5\r\n}",
+              "raw": "{\r\n  \"titulo\": \"Hollow Knight\",\r\n  \"desenvolvedora\": \"Team Cherry\",\r\n  \"ano\": 2017,\r\n  \"genero\": \"RPG/Aventura\",\r\n  \"plataforma\": \"PC/Switch/PS4\",\r\n  \"nota\": 9.2\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -166,7 +261,7 @@
               }
             },
             "url": {
-              "raw": "http://localhost:3000/api/jogos/4",
+              "raw": "http://localhost:3000/api/jogos/11",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -175,7 +270,37 @@
               "path": [
                 "api",
                 "jogos",
-                "4"
+                "11"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/jogos/put_2 ID",
+          "request": {
+            "method": "PUT",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"The Witcher 3: Wild Hunt\",\r\n    \"desenvolvedora\": \"CD Projekt Red\",\r\n    \"ano\": 2015,\r\n    \"genero\": \"RPG/Ação\",\r\n    \"plataforma\": \"PC/PS4/PS5/Xbox One\",\r\n    \"nota\": 9.8\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/1",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "1"
               ]
             }
           },
@@ -192,7 +317,7 @@
             "method": "DELETE",
             "header": [],
             "url": {
-              "raw": "http://localhost:3000/api/jogos/3",
+              "raw": "http://localhost:3000/api/jogos/2",
               "protocol": "http",
               "host": [
                 "localhost"
@@ -201,7 +326,7 @@
               "path": [
                 "api",
                 "jogos",
-                "3"
+                "2"
               ]
             }
           },
