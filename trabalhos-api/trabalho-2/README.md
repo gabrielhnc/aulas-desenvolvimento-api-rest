@@ -335,7 +335,7 @@ Arquivos JSON utilizados para adicionar recursos ao array:
 
 ![JOGOS](./prints/GET/get_jogos.png)
 
-- localhost:3000/api/jogos/id/1
+- localhost:3000/api/jogos/id/3
 
 ![JOGOS-ID](./prints/GET/get_jogos_id.png)
 
