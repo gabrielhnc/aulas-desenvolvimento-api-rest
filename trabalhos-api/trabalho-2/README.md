@@ -1,5 +1,11 @@
 # **API REST com Node.js e Express**
 
+## Informações do Aluno
+
+**Nome**: Gabriel Henrique Navela Casarini
+
+**Curso**: Ciência da Computação (UNIFIL)
+
 ## Introdução
 
 Este repositório consiste em um trabalho acadêmico com o objetivo de aplicar alguns conceitos relacionados a API REST, desde a implementação de ENDPOINTS até testes com o POSTMAN validando suas funcionalidades.
@@ -325,17 +331,74 @@ Arquivos JSON utilizados para adicionar recursos ao array:
 
 ### - GET
 
+- localhost:3000/api/jogos
+
+![JOGOS](./prints/GET/get_jogos.png)
+
+- localhost:3000/api/jogos/id/1
+
+![JOGOS-ID](./prints/GET/get_jogos_id.png)
+
+- localhost:3000/api/jogos/titulo/god of war
+
+![JOGOS-TITULO](./prints/GET/get_jogos_titulo.png)
+
+localhost:3000/api/jogos?genero=Ação/Aventura&nota_min=9&pagina=1&limite=5
+
+![JOGOS-COMPLETO](./prints/GET/get_jogos_filtro_completo.png)
+
+---
 
 ### - POST
 
+localhost:3000/api/jogos
+
+Post 1
+
+![POST-1](./prints/POST/post_jogos_1.png)
+
+Post 2
+
+![POST-2](./prints/POST/post_jogos_2.png)
+
+Post 3
+
+![POST-3](./prints/POST/post_jogos_3.png)
+
+GET em todos os jogos após dar 3 POSTs
+
+![GET-APOS-POST](./prints/GET/get_jogos_post.png)
+
+---
 
 ### - PUT
 
+localhost:3000/api/jogos/1
+
+![PUT-1](./prints/PUT/put_jogos_ID%201.png)
+
+Dando **GET** jogos após dar o put no ID 1
+
+![GET-APOS-PUT](./prints/GET/get_jogos_put.png)
+
+---
 
 ### - DELETE
 
+localhost:3000/api/jogos/2
+
+![DELETE-1](./prints/DELETE/delete_jogos_ID%202.png)
+
+Dando **GET** jogos após dar o delete no ID 2
+
+![GET-APOS-DELETE](./prints/GET/get_jogos_delete.png)
 
 ---
 
 ## 📄 Conclusão
 
+Este trabalho permitiu a realização prática de uma API REST implementando, além do que foi desenvolvido no trabalho 1 (GET e POST), os endpoints PUT e DELETE.
+
+Além disso, o uso do Postman foi essencial para testar e validar o comportamento da API, garantindo seu correto funcionamento.
+
+Ao fim foi alcançado uma API REST com os 4 endpoints principais funcionando e trazendo os resultados de cada requisição corretamente.
