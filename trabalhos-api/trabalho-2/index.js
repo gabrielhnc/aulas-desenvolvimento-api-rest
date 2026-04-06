@@ -49,51 +49,6 @@ app.get('/api/info', (req, res) => {
 
 // ==============================================================
 
-// ENDPOINT POST
-
-app.post('/api/jogos', (req, res) => {
-    // 1. Extrair dados do body
-    const { titulo, desenvolvedora, ano, genero, plataforma, nota } = req.body;
-
-    // 2. VALIDAÇÕES - Campos obrigatórios
-    if (!titulo || !desenvolvedora || !ano || !genero || !plataforma || !nota) {
-        return res.status(400).json({ erro: "Campos obrigatórios: titulo, desenvolvedora, ano, genero, plataforma, nota" });
-    }
-
-    // 3. VALIDAÇÕES - Tipos de dados
-    if (typeof titulo !== 'string' || typeof desenvolvedora !== 'string' || typeof genero !== 'string' || typeof plataforma !== 'string') {
-        return res.status(400).json({ erro: "Titulo, desenvolvedora, genero e plataforma devem ser texto" });
-    }
-
-    if (typeof ano !== 'number' || typeof nota !== 'number') {
-        return res.status(400).json({ erro: "Ano e nota devem ser números" });
-    }
-
-    // 4. VALIDAÇÕES - Regras de negócio
-    if (nota < 0 || nota > 10) {
-        return res.status(400).json({ erro: "Nota deve estar entre 0 e 10" });
-    }
-
-    // 5. Criar novo jogo
-    const novoJogo = { 
-        id: proximoId++, 
-        titulo, 
-        desenvolvedora, 
-        ano, 
-        genero, 
-        plataforma, 
-        nota 
-    };
-
-    // 6. Adicionar ao array
-    jogos.push(novoJogo);
-
-    // 7. Retornar sucesso
-    res.status(201).json(novoJogo);
-});
-
-// ==============================================================
-
 // GET JOGOS (com filtros, ordenação e paginação)
 app.get('/api/jogos', (req, res) => {
     // QUERY PARAMETERS
@@ -186,6 +141,51 @@ app.get('/api/jogos/titulo/:titulo', (req, res) => {
 
     if (!jogo) return res.status(404).json({ erro: "Jogo não encontrado" });
     res.json(jogo);
+});
+
+// ==============================================================
+
+// ENDPOINT POST
+
+app.post('/api/jogos', (req, res) => {
+    // 1. Extrair dados do body
+    const { titulo, desenvolvedora, ano, genero, plataforma, nota } = req.body;
+
+    // 2. VALIDAÇÕES - Campos obrigatórios
+    if (!titulo || !desenvolvedora || !ano || !genero || !plataforma || !nota) {
+        return res.status(400).json({ erro: "Campos obrigatórios: titulo, desenvolvedora, ano, genero, plataforma, nota" });
+    }
+
+    // 3. VALIDAÇÕES - Tipos de dados
+    if (typeof titulo !== 'string' || typeof desenvolvedora !== 'string' || typeof genero !== 'string' || typeof plataforma !== 'string') {
+        return res.status(400).json({ erro: "Titulo, desenvolvedora, genero e plataforma devem ser texto" });
+    }
+
+    if (typeof ano !== 'number' || typeof nota !== 'number') {
+        return res.status(400).json({ erro: "Ano e nota devem ser números" });
+    }
+
+    // 4. VALIDAÇÕES - Regras de negócio
+    if (nota < 0 || nota > 10) {
+        return res.status(400).json({ erro: "Nota deve estar entre 0 e 10" });
+    }
+
+    // 5. Criar novo jogo
+    const novoJogo = { 
+        id: proximoId++, 
+        titulo, 
+        desenvolvedora, 
+        ano, 
+        genero, 
+        plataforma, 
+        nota 
+    };
+
+    // 6. Adicionar ao array
+    jogos.push(novoJogo);
+
+    // 7. Retornar sucesso
+    res.status(201).json(novoJogo);
 });
 
 // ==============================================================
