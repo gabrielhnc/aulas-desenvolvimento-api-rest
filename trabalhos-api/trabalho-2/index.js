@@ -1,10 +1,14 @@
+// 1. Importar Express
 const express = require('express');
 
+// 2. Criar aplicação
 const app = express();
 app.set('json spaces', 2);
 
+// 3. Definir porta
 const PORT = 3000;
 
+// 4. Middleware
 app.use(express.json());
 
 // ARRAY DE JOGOS (INICIALMENTE 10 REGISTROS)
@@ -34,8 +38,6 @@ app.get('/', (req, res) => {
     });
 });
 
-// ==============================================================
-
 // INFO
 app.get('/api/info', (req, res) => {
     res.json({
@@ -47,8 +49,54 @@ app.get('/api/info', (req, res) => {
 
 // ==============================================================
 
-// GET - LISTAR JOGOS (filtros, ordenação e paginação)
+// ENDPOINT POST
+
+app.post('/api/jogos', (req, res) => {
+    // 1. Extrair dados do body
+    const { titulo, desenvolvedora, ano, genero, plataforma, nota } = req.body;
+
+    // 2. VALIDAÇÕES - Campos obrigatórios
+    if (!titulo || !desenvolvedora || !ano || !genero || !plataforma || !nota) {
+        return res.status(400).json({ erro: "Campos obrigatórios: titulo, desenvolvedora, ano, genero, plataforma, nota" });
+    }
+
+    // 3. VALIDAÇÕES - Tipos de dados
+    if (typeof titulo !== 'string' || typeof desenvolvedora !== 'string' || typeof genero !== 'string' || typeof plataforma !== 'string') {
+        return res.status(400).json({ erro: "Titulo, desenvolvedora, genero e plataforma devem ser texto" });
+    }
+
+    if (typeof ano !== 'number' || typeof nota !== 'number') {
+        return res.status(400).json({ erro: "Ano e nota devem ser números" });
+    }
+
+    // 4. VALIDAÇÕES - Regras de negócio
+    if (nota < 0 || nota > 10) {
+        return res.status(400).json({ erro: "Nota deve estar entre 0 e 10" });
+    }
+
+    // 5. Criar novo jogo
+    const novoJogo = { 
+        id: proximoId++, 
+        titulo, 
+        desenvolvedora, 
+        ano, 
+        genero, 
+        plataforma, 
+        nota 
+    };
+
+    // 6. Adicionar ao array
+    jogos.push(novoJogo);
+
+    // 7. Retornar sucesso
+    res.status(201).json(novoJogo);
+});
+
+// ==============================================================
+
+// GET JOGOS (com filtros, ordenação e paginação)
 app.get('/api/jogos', (req, res) => {
+    // QUERY PARAMETERS
     const { 
         genero, nota_min, nota_max, ano_min, ano_max, busca, ordem, direcao, 
         pagina = 1, 
@@ -57,15 +105,20 @@ app.get('/api/jogos', (req, res) => {
 
     let resultado = [...jogos];
 
+    // FILTRO POR GÊNERO
     if (genero) resultado = resultado.filter(j => j.genero === genero);
+
+    // FILTRO POR NOTA
     if (nota_min) resultado = resultado.filter(j => j.nota >= parseFloat(nota_min));
     if (nota_max) resultado = resultado.filter(j => j.nota <= parseFloat(nota_max));
+
+    // FILTRO POR ANO
     if (ano_min) resultado = resultado.filter(j => j.ano >= parseInt(ano_min));
     if (ano_max) resultado = resultado.filter(j => j.ano <= parseInt(ano_max));
 
+    // BUSCA POR TÍTULO
     if (busca) {
         const termo = busca.toLowerCase();
-
         resultado = resultado.filter(j => 
             j.titulo.toLowerCase().includes(termo));
     }
@@ -94,6 +147,7 @@ app.get('/api/jogos', (req, res) => {
         });
     }
 
+    // PAGINAÇÃO
     const paginaNum = parseInt(pagina);
     const limiteNum = parseInt(limite);
 
@@ -115,7 +169,9 @@ app.get('/api/jogos', (req, res) => {
 
 // ==============================================================
 
-// GET - BUSCAR POR ID
+// PATH PARAMETERS (ESPECIFICO APÓS A ROTA)
+
+// BUSCAR POR ID
 app.get('/api/jogos/id/:id', (req, res) => {
     const jogo = jogos.find(j => j.id === parseInt(req.params.id));
 
@@ -123,9 +179,7 @@ app.get('/api/jogos/id/:id', (req, res) => {
     res.json(jogo);
 });
 
-// ==============================================================
-
-// GET - BUSCAR POR TÍTULO
+// BUSCAR POR TÍTULO
 app.get('/api/jogos/titulo/:titulo', (req, res) => {
     const titulo = req.params.titulo.toLowerCase();
     const jogo = jogos.find(j => j.titulo.toLowerCase() === titulo);
@@ -136,55 +190,24 @@ app.get('/api/jogos/titulo/:titulo', (req, res) => {
 
 // ==============================================================
 
-// POST - CRIAR JOGO
-app.post('/api/jogos', (req, res) => {
-    const { titulo, desenvolvedora, ano, genero, plataforma, nota } = req.body;
+// ENDPOINT PUT
 
-    if (!titulo || !desenvolvedora || !ano || !genero || !plataforma || !nota) {
-        return res.status(400).json({ erro: "Campos obrigatórios: titulo, desenvolvedora, ano, genero, plataforma, nota" });
-    }
-
-    if (typeof titulo !== 'string' || typeof desenvolvedora !== 'string' || typeof genero !== 'string' || typeof plataforma !== 'string') {
-        return res.status(400).json({ erro: "Titulo, desenvolvedora, genero e plataforma devem ser texto" });
-    }
-
-    if (typeof ano !== 'number' || typeof nota !== 'number') {
-        return res.status(400).json({ erro: "Ano e nota devem ser números" });
-    }
-
-    if (nota < 0 || nota > 10) {
-        return res.status(400).json({ erro: "Nota deve estar entre 0 e 10" });
-    }
-
-    const novoJogo = { 
-        id: proximoId++, 
-        titulo, 
-        desenvolvedora, 
-        ano, 
-        genero, 
-        plataforma, 
-        nota 
-    };
-
-    jogos.push(novoJogo);
-
-    res.status(201).json(novoJogo);
-});
-
-// ==============================================================
-
-// PUT - ATUALIZAR JOGO COMPLETO
 app.put('/api/jogos/:id', (req, res) => {
+    // 1. Buscar jogo pelo ID
     const jogo = jogos.find(j => j.id === parseInt(req.params.id));
 
+    // 2. Verificar se existe
     if (!jogo) return res.status(404).json({ erro: "Jogo não encontrado" });
 
+    // 3. Extrair dados do body
     const { titulo, desenvolvedora, ano, genero, plataforma, nota } = req.body;
 
+    // 4. VALIDAÇÕES - Campos obrigatórios
     if (!titulo || !desenvolvedora || !ano || !genero || !plataforma || !nota) {
         return res.status(400).json({ erro: "Campos obrigatórios: titulo, desenvolvedora, ano, genero, plataforma, nota" });
     }
 
+    // 5. VALIDAÇÕES - Tipos de dados
     if (typeof titulo !== 'string' || typeof desenvolvedora !== 'string' || typeof genero !== 'string' || typeof plataforma !== 'string') {
         return res.status(400).json({ erro: "Titulo, desenvolvedora, genero e plataforma devem ser texto" });
     }
@@ -193,10 +216,12 @@ app.put('/api/jogos/:id', (req, res) => {
         return res.status(400).json({ erro: "Ano e nota devem ser números" });
     }
 
+    // 6. VALIDAÇÕES - Regras de negócio
     if (nota < 0 || nota > 10) {
         return res.status(400).json({ erro: "Nota deve estar entre 0 e 10" });
     }
 
+    // 7. Atualizar campos
     jogo.titulo = titulo;
     jogo.desenvolvedora = desenvolvedora;
     jogo.ano = ano;
@@ -204,18 +229,25 @@ app.put('/api/jogos/:id', (req, res) => {
     jogo.plataforma = plataforma;
     jogo.nota = nota;
 
+    // 8. Retornar jogo atualizado
     res.json(jogo);
 });
 
 // ==============================================================
 
-// DELETE - REMOVER JOGO
+// ENDPOINT DELETE
+
 app.delete('/api/jogos/:id', (req, res) => {
+    // 1. Buscar índice do jogo pelo ID
     const index = jogos.findIndex(j => j.id === parseInt(req.params.id));
 
+    // 2. Verificar se existe
     if (index === -1) return res.status(404).json({ erro: "Jogo não encontrado" });
 
+    // 3. Remover do array
     jogos.splice(index, 1);
+
+    // 4. Retornar sem conteúdo
     res.status(204).send();
 });
 
