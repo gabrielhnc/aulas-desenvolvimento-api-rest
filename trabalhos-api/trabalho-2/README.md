@@ -201,9 +201,10 @@ Exemplo (JSON):
 
 Para atualizar um registro existente, é necessário informar o ID na URL e enviar todos os campos no corpo da requisição em JSON no Postman.
 
-Exemplo (JSON):
+Exemplo (JSON) -
+Alterando gênero, plataforma e nota:
+
 ```json
-// Alteração do gênero / plataforma / nota
 {
   "titulo": "Hollow Knight",
   "desenvolvedora": "Team Cherry",
