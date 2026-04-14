@@ -104,6 +104,56 @@ app.post('/api/produtos', (req, res) => {
     }
 });
 
+// PUT /api/produtos/:id - Atualizar produto
+app.put('/api/produtos/:id', (req, res) => {
+    try {
+        // 1. Pegar ID da URL
+        const id = parseInt(req.params.id);
+        
+        // 2. Pegar dados do body
+        const { nome, preco, categoria, estoque = 0 } = req.body;
+        
+        // 3. Validações
+        if (!nome || !preco || !categoria) {
+            return res.status(400).json({ 
+                erro: 'Campos obrigatórios faltando' 
+            });
+        }
+        
+        if (typeof preco !== 'number' || preco <= 0) {
+            return res.status(400).json({ 
+                erro: 'Preço inválido' 
+            });
+        }
+        
+        // 4. UPDATE
+        const stmt = db.prepare(`
+            UPDATE produtos 
+            SET nome = ?, preco = ?, categoria = ?, estoque = ?
+            WHERE id = ?
+        `);
+        
+        const result = stmt.run(nome, preco, categoria, estoque, id);
+        
+        // 5. Verificar se atualizou algo
+        if (result.changes === 0) {
+            return res.status(404).json({ erro: 'Produto não encontrado' });
+        }
+        
+        // 6. Buscar produto atualizado
+        const produtoAtualizado = db.prepare(
+            'SELECT * FROM produtos WHERE id = ?'
+        ).get(id);
+        
+        // 7. Retornar sucesso
+        res.status(200).json(produtoAtualizado);
+        
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: 'Erro ao atualizar produto' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`API rodando em http://localhost:${PORT}`)
 })
