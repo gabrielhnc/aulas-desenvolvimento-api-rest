@@ -154,6 +154,36 @@ app.put('/api/produtos/:id', (req, res) => {
     }
 });
 
+// DELETE /api/produtos/:id - Remover produto
+app.delete('/api/produtos/:id', (req, res) => {
+    try {
+        // 1. Pegar ID da URL
+        const id = parseInt(req.params.id);
+
+        // 2. Preparar DELETE
+        const stmt = db.prepare('DELETE FROM produtos WHERE id = ?');
+
+        // 3. Executar
+        const result = stmt.run(id);
+
+        // 4. Verificar se deletou algo
+        if (result.changes === 0) {
+            return res.status(404).json({
+                erro: 'Produto não encontrado'
+            });
+        }
+
+        // 5. Retornar sucesso
+        res.status(200).json({
+            mensagem: 'Produto removido com sucesso'
+        });
+
+    } catch (error) {
+        console.error(error);
+        res.status(500).json({ erro: 'Erro ao deletar produto' });
+    }
+});
+
 app.listen(PORT, () => {
     console.log(`API rodando em http://localhost:${PORT}`)
 })
