@@ -16,20 +16,81 @@ app.get('/', (req, res) => {
     });
 });
 
-// GET /api/produtos - Listar todos
+// GET /api/produtos - Com filtros
 app.get('/api/produtos', (req, res) => {
     try {
-        // Preparar query
-        const stmt = db.prepare('SELECT * FROM produtos');
+        // Pegar query parameters
+        const { 
+            categoria, preco_max, preco_min, 
+            ordem, direcao,
+            pagina = 1, 
+            limite = 10
+        } = req.query;
         
-        // Executar e pegar todos os resultados
-        const produtos = stmt.all();
+        // Construir SQL dinamicamente
+        let sql = 'SELECT * FROM produtos WHERE 1=1';
+        const params = [];
         
-        // Retornar array (pode ser vazio [])
-        res.json(produtos);
+        // Adicionar filtros dinamicamente
+        if (categoria) {
+            sql += ' AND categoria = ?';
+            params.push(categoria);
+        }
+        
+        if (preco_max) {
+            sql += ' AND preco <= ?';
+            params.push(parseFloat(preco_max));
+        }
+        
+        if (preco_min) {
+            sql += ' AND preco >= ?';
+            params.push(parseFloat(preco_min));
+        }
+
+        if (ordem) {
+            // Validar campo (whitelist)
+            const camposValidos = ['nome', 'preco', 'categoria', 'created_at'];
+            if (camposValidos.includes(ordem)) {
+                sql += ` ORDER BY ${ordem}`;
+                
+                // Validar direção
+                if (direcao === 'desc') {
+                    sql += ' DESC';
+                } else {
+                    sql += ' ASC';
+                }
+            }
+        }
+        
+        // Contar total ANTES da paginação
+        let countSql = sql.replace('SELECT *', 'SELECT COUNT(*) as total');
+        const countStmt = db.prepare(countSql);
+        const { total } = countStmt.get(...params);
+        
+        // Adicionar LIMIT e OFFSET
+        const limiteNum = parseInt(limite);
+        const paginaNum = parseInt(pagina);
+        const offset = (paginaNum - 1) * limiteNum;
+        
+        sql += ' LIMIT ? OFFSET ?';
+        params.push(limiteNum, offset);
+
+        // Executar query
+        const stmt = db.prepare(sql);
+        const produtos = stmt.all(...params);
+        
+        res.json({
+            dados: produtos,
+            paginacao: {
+                pagina_atual: paginaNum,
+                itens_por_pagina: limiteNum,
+                total_itens: total,
+                total_paginas: Math.ceil(total / limiteNum)
+            }
+        });
     } catch (error) {
         console.error(error);
-        res.status(500).json({ erro: 'Erro ao buscar produtos' });
+        res.status(500).json({ erro: 'Erro na busca' });
     }
 });
 
@@ -173,10 +234,8 @@ app.delete('/api/produtos/:id', (req, res) => {
             });
         }
 
-        // 5. Retornar sucesso
-        res.status(200).json({
-            mensagem: 'Produto removido com sucesso'
-        });
+        // 5. Retornar 204 No Content
+        res.status(204).send();
 
     } catch (error) {
         console.error(error);
