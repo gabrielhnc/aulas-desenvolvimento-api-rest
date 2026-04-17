@@ -11,6 +11,59 @@
       "name": "GET",
       "item": [
         {
+          "name": "/",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hades\",\r\n    \"desenvolvedora\": \"Supergiant Games\",\r\n    \"ano\": 2020,\r\n    \"genero\": \"Ação/RPG\",\r\n    \"plataforma\": \"PC/Switch/PS4\",\r\n    \"nota\": 9.3\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                ""
+              ]
+            }
+          },
+          "response": []
+        },
+        {
+          "name": "/info",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hades\",\r\n    \"desenvolvedora\": \"Supergiant Games\",\r\n    \"ano\": 2020,\r\n    \"genero\": \"Ação/RPG\",\r\n    \"plataforma\": \"PC/Switch/PS4\",\r\n    \"nota\": 9.3\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/info",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "info"
+              ]
+            }
+          },
+          "response": []
+        },
+        {
           "name": "/jogos",
           "protocolProfileBehavior": {
             "disableBodyPruning": true
@@ -73,6 +126,34 @@
             }
           },
           "response": []
+        },
+        {
+          "name": "/jogos/id",
+          "protocolProfileBehavior": {
+            "disableBodyPruning": true
+          },
+          "request": {
+            "method": "GET",
+            "header": [],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Hades\",\r\n    \"desenvolvedora\": \"Supergiant Games\",\r\n    \"ano\": 2020,\r\n    \"genero\": \"Ação/RPG\",\r\n    \"plataforma\": \"PC/Switch/PS4\",\r\n    \"nota\": 9.3\r\n}"
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/12",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "12"
+              ]
+            }
+          },
+          "response": []
         }
       ]
     },
@@ -89,13 +170,13 @@
             "header": [
               {
                 "key": "Authorization",
-                "value": "",
+                "value": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidXN1YXJpbzFAZW1haWwuY29tIiwicm9sZSI6InVzZXIiLCJpYXQiOjE3NzYzODU1MzYsImV4cCI6MTc3NjQ3MTkzNn0.SIBeHG1xWT7KSdI4ChPj4B9Wv0DdwMFSNyt1fkaiin0",
                 "type": "text"
               }
             ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"titulo\": \"Novo Jogo\",\r\n    \"desenvolvedora\": \"Teste Studio\",\r\n    \"ano\": 2024,\r\n    \"genero\": \"RPG\",\r\n    \"plataforma\": \"PC\",\r\n    \"nota\": 9.0\r\n}",
+              "raw": "{\r\n    \"titulo\": \"Novo Jogo\",\r\n    \"desenvolvedora\": \"Teste desenvolvedora\",\r\n    \"ano\": 2024,\r\n    \"genero\": \"RPG\",\r\n    \"plataforma\": \"PC\",\r\n    \"nota\": 9.0\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -124,7 +205,7 @@
             "header": [],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"nome\": \"João Pedro\",\r\n    \"email\": \"joao2@email.com\",\r\n    \"senha\": \"abcdef\"\r\n}",
+              "raw": "{\r\n    \"nome\": \"usuario1\",\r\n    \"email\": \"usuario1@email.com\",\r\n    \"senha\": \"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -150,10 +231,16 @@
           "name": "/auth/login",
           "request": {
             "method": "POST",
-            "header": [],
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "",
+                "type": "text"
+              }
+            ],
             "body": {
               "mode": "raw",
-              "raw": "{\r\n    \"email\": \"joao@email.com\",\r\n    \"senha\": \"abcdef\"\r\n}",
+              "raw": "{\r\n    \"email\": \"usuario1@email.com\",\r\n    \"senha\": \"123456\"\r\n}",
               "options": {
                 "raw": {
                   "language": "json"
@@ -179,7 +266,44 @@
     },
     {
       "name": "PUT",
-      "item": []
+      "item": [
+        {
+          "name": "/jogos/put",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Authorization",
+                "value": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySWQiOjEsImVtYWlsIjoidXN1YXJpbzFAZW1haWwuY29tIiwiaWF0IjoxNzc2Mzg0NDg1LCJleHAiOjE3NzY0NzA4ODV9.KNbkUjW1N9IQHNOerbbD82VKTvfPkOglMuNIkNIu8pQ",
+                "type": "text"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\r\n    \"titulo\": \"Novo nome\",\r\n    \"desenvolvedora\": \"Desenvolvedora atualizada\",\r\n    \"ano\": 2025,\r\n    \"genero\": \"Aventura\",\r\n    \"plataforma\": \"PS4\",\r\n    \"nota\": 10.0\r\n}",
+              "options": {
+                "raw": {
+                  "language": "json"
+                }
+              }
+            },
+            "url": {
+              "raw": "http://localhost:3000/api/jogos/3",
+              "protocol": "http",
+              "host": [
+                "localhost"
+              ],
+              "port": "3000",
+              "path": [
+                "api",
+                "jogos",
+                "3"
+              ]
+            }
+          },
+          "response": []
+        }
+      ]
     },
     {
       "name": "DELETE",
