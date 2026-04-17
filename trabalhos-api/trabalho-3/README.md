@@ -164,7 +164,7 @@ Informações de Login:
 
 ```json
 {
-    "nome": "usuario1",
+    "email": "usuario1@email.com",
     "senha": "123456"
 }
 ```
