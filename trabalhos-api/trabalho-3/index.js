@@ -260,8 +260,8 @@ app.post('/auth/register', async (req, res) => {
             return res.status(400).json({ erro: 'Campos obrigatórios' });
         }
         
-        if (senha.length < 6) {
-            return res.status(400).json({ erro: 'Senha mínimo 6 caracteres' });
+        if (senha.length < 5) {
+            return res.status(400).json({ erro: 'Senha mínimo 5 caracteres' });
         }
         
         // 2. Verificar se email já existe
