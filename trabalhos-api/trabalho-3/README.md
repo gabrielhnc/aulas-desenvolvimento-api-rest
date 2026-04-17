@@ -180,7 +180,7 @@ Informações de Login:
 
 Lista jogos com filtros, ordenação e paginação.
 
-```http
+```bash
 http://localhost:3000/api/jogos
 ```
 
@@ -210,7 +210,7 @@ http://localhost:3000/api/jogos
 
 Buscar um jogo específico por ID.
 
-```http
+```bash
 http://localhost:3000/api/jogos/12
 ```
 
@@ -273,7 +273,7 @@ Exemplo de PUT:
 
 Remover um jogo do banco de dados.
 
-```http
+```bash
 http://localhost:3000/api/jogos/17
 ```
 
