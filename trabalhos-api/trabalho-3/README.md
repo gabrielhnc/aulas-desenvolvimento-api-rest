@@ -165,7 +165,6 @@ Informações de Login:
 ```json
 {
     "nome": "usuario1",
-    "email": "usuario1@email.com",
     "senha": "123456"
 }
 ```
@@ -181,7 +180,7 @@ Informações de Login:
 Lista jogos com filtros, ordenação e paginação.
 
 ```bash
-http://localhost:3000/api/jogos
+localhost:3000/api/jogos
 ```
 
 ![JOGOS](./prints/GET/get_jogos.png)
@@ -211,7 +210,7 @@ http://localhost:3000/api/jogos
 Buscar um jogo específico por ID.
 
 ```bash
-http://localhost:3000/api/jogos/12
+localhost:3000/api/jogos/12
 ```
 
 ![JOGOS_ID](./prints/GET/get_jogos_id.png)
@@ -274,7 +273,7 @@ Exemplo de PUT:
 Remover um jogo do banco de dados.
 
 ```bash
-http://localhost:3000/api/jogos/17
+localhost:3000/api/jogos/17
 ```
 
 * Inserido a autorização no header para ser possível o PUT via token do login do usuário.
